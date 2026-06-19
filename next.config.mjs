@@ -3,4 +3,4 @@ const nextConfig = {
   allowedDevOrigins: ['192.168.0.103'],
 }
 
-module.exports = nextConfig
+export default nextConfig
