@@ -73,27 +73,31 @@ export default function LikeSaveButtons({ postId }) {
   }
 
   const handleSave = async () => {
-    if (!userId) return
-    setLoading(true)
-
-    if (saved) {
-      await supabase
-        .from('saves')
-        .delete()
-        .eq('post_id', postId)
-        .eq('user_id', userId)
-
-      setSaved(false)
-    } else {
-      await supabase
-        .from('saves')
-        .insert({ post_id: postId, user_id: userId })
-
-      setSaved(true)
-    }
-
-    setLoading(false)
+  if (!userId) {
+    console.log('No user ID — not logged in')
+    return
   }
+  setLoading(true)
+  console.log('Saving with userId:', userId, 'postId:', postId)
+
+  if (saved) {
+    const { error } = await supabase
+      .from('saves')
+      .delete()
+      .eq('post_id', postId)
+      .eq('user_id', userId)
+    console.log('Delete error:', error)
+    setSaved(false)
+  } else {
+    const { error } = await supabase
+      .from('saves')
+      .insert({ post_id: postId, user_id: userId })
+    console.log('Insert error:', error)
+    setSaved(true)
+  }
+
+  setLoading(false)
+}
 
   return (
     <div className="flex gap-3 mt-4">

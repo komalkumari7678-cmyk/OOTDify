@@ -9,13 +9,27 @@ export default function SavedPosts({ userId }) {
 
   useEffect(() => {
     const fetchSaved = async () => {
-      const { data } = await supabase
+      // First get all save records for this user
+      const { data: saveData, error: saveError } = await supabase
         .from('saves')
-        .select(`post_id, posts(id, image_url, caption, profiles(username))`)
+        .select('post_id')
         .eq('user_id', userId)
+
+      if (saveError || !saveData || saveData.length === 0) {
+        setLoading(false)
+        return
+      }
+
+      // Then fetch the actual posts
+      const postIds = saveData.map((s) => s.post_id)
+
+      const { data: postData } = await supabase
+        .from('posts')
+        .select(`*, profiles(username)`)
+        .in('id', postIds)
         .order('created_at', { ascending: false })
 
-      setPosts(data?.map((s) => s.posts) || [])
+      setPosts(postData || [])
       setLoading(false)
     }
 
