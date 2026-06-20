@@ -1,4 +1,5 @@
 'use client'
+import TryOn from '@/app/components/TryOn'
 import LikeSaveButtons from '@/app/components/LikeSaveButtons'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
@@ -168,6 +169,9 @@ export default function PostPage() {
         )}
         {/* Like and Save */}
 <LikeSaveButtons postId={post.id} />
+
+{/* Try On */}
+<TryOn garmentImageUrl={post.image_url} />
 
         {/* Tags list */}
         {tags.length > 0 && (
