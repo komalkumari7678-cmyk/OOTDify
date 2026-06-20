@@ -1,5 +1,5 @@
 'use client'
-
+import LikeSaveButtons from '@/app/components/LikeSaveButtons'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -166,6 +166,8 @@ export default function PostPage() {
             </p>
           </div>
         )}
+        {/* Like and Save */}
+<LikeSaveButtons postId={post.id} />
 
         {/* Tags list */}
         {tags.length > 0 && (

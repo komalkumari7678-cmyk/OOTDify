@@ -1,5 +1,5 @@
 'use client'
-
+import SavedPosts from '@/app/components/SavedPosts'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -259,6 +259,17 @@ export default function ProfilePage() {
           </>
         )}
 
+        <button
+  onClick={() => setActiveTab('saved')}
+  className={`pixel-btn text-xs px-4 py-2 border-2 border-black ${
+    activeTab === 'saved'
+      ? 'bg-pink-500 text-black'
+      : 'bg-black text-pink-400 border-pink-800'
+  }`}
+>
+  [ SAVED ]
+</button>
+
         {/* About tab */}
         {activeTab === 'about' && (
           <div className="pixel-box bg-green-950 p-6">
@@ -303,6 +314,10 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+        {/* Saved tab */}
+{activeTab === 'saved' && isOwner && (
+  <SavedPosts userId={profile.id} />
+)}
 
       </div>
     </div>

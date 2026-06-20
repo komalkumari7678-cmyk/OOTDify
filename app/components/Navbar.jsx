@@ -93,7 +93,7 @@ export default function Navbar() {
               onClick={handleLogout}
               className="pixel-btn bg-black text-pink-400 text-xs px-3 py-2 border-2 border-pink-500 hover:bg-pink-950"
             >
-              [ EXIT ]
+              [ LOGOUT ]
             </button>
 
           </div>
